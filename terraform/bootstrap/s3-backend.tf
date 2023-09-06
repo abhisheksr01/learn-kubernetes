@@ -1,5 +1,5 @@
 module "s3_backend" {
-  source              = "git::https://github.com/abhisheksr01/terraform-modules.git//aws/s3-backend"
+  source              = "git::https://github.com/abhisheksr01/terraform-modules.git//aws/s3-backend?ref=v0.1.0"
   remote_backend_name = "${var.resource_name_prefix}-tf-state"
   // These should be refactored and a new version of the module should be published
   environment_name     = "dev"
