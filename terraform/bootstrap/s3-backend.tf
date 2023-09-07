@@ -1,12 +1,13 @@
 module "s3_backend" {
-  source              = "git::https://github.com/abhisheksr01/terraform-modules.git//aws/s3-backend?ref=v0.1.0"
-  remote_backend_name = "${var.resource_name_prefix}-tf-state"
-  // These should be refactored and a new version of the module should be published
-  environment_name     = "dev"
-  owner                = "abhishek"
-  description          = "resources for learning k8s eks"
-  s3_kms_master_key_id = data.aws_kms_alias.aws_kms_s3_default_key.id
-  additional_tags      = var.default_tags
+  source                      = "git::https://github.com/abhisheksr01/aws-terraform-modules.git//s3-backend"
+  bucket_name                 = var.resource_name_prefix
+  dynamodb_table_name         = var.resource_name_prefix
+  tags                        = var.default_tags
+  s3_bucket_kms_master_key_id = data.aws_kms_alias.aws_kms_s3_default_key.id
+}
+
+data "aws_kms_alias" "aws_kms_s3_default_key" {
+  name = "alias/aws/s3"
 }
 
 data "aws_kms_alias" "aws_kms_s3_default_key" {
